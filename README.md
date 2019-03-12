@@ -16,7 +16,12 @@ It is an independent and lightweight chat user interface (chat UI) library for j
 https://riversun.github.io/chatux/
 
 <img src="https://riversun.github.io/chatux/chatux_qr.png">
-      
+
+**How to play demo.**
+
+This demo is simple echo chat.
+But a few command available.If you write "show buttons", you can see action buttons in chat.
+Or you write "show image", you can see image in chat.
 
 # Quick start
 
