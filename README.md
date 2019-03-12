@@ -10,7 +10,7 @@ It is an independent and lightweight chat user interface (chat UI) library for j
 - For PC, show chat in a window that does not disturb existing content
 - For mobile dvices like smartphones and tablets, chat UI will be overlaid on existing pages to avoid disturbing existing content
 
-<img src="https://riversun.github.io/chatux/guide.png">
+[![guide](https://riversun.github.io/chatux/guide.png)](https://riversun.github.io/chatux/)
 
 # DEMO
 https://riversun.github.io/chatux/
@@ -73,11 +73,13 @@ Check this example.
 
 **Show on PC**
 
-<img src="https://riversun.github.io/chatux/onpc.png">
+[![guide](https://riversun.github.io/chatux/onpc.png)](https://riversun.github.io/chatux/)
+
 
 **Show on mobile**
 
-<img src="https://riversun.github.io/chatux/onmobile.png">
+[![guide](https://riversun.github.io/chatux/onmobile.png)](https://riversun.github.io/chatux/)
+
 
 ## install
 
