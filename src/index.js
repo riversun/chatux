@@ -1,1 +1,1 @@
-export { default as ChatKit }  from './chat-kit.js';
+export { default as ChatUx }  from './chat-ux.js';

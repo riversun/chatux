@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>chat-kit example</title>
+    <title>chatux example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 </head>
 <body style="padding:0px;margin:0px;">
 <div style="padding:40px">
-    <h1>chat-kit example</h1>
+    <h1>chatux example</h1>
     <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Maecenas sed enim ut sem viverra aliquet eget. Eu feugiat pretium
         nibh
@@ -36,18 +36,18 @@
         volutpat.
 
 </div>
-<script src="js/chat-kit.js"></script>
+<script src="js/chatux.js"></script>
 <script>
 
-    const chatkit = new ChatKit();
+    const chatux = new ChatUx();
 
     const opt = {
-        renderMode: 'pc',//'auto' or 'pc' or 'mobile'
+        renderMode: 'auto',//'auto' or 'pc' or 'mobile'
         buttonOffWhenOpenFrame: false,//
         bot: {
             wakeupText: null,
-            botPhoto: null,
-            humanPhoto: null,
+            botPhoto: null,//URL of bot photo image
+            humanPhoto: null,//URL of human photo image
             widget: {
                 sendLabel: 'SEND',
                 placeHolder: 'Say something'
@@ -65,7 +65,7 @@
         },
         window: {
             title: 'My chat',
-            infoUrl: 'https://github.com/riversun/chat-kit',
+            infoUrl: 'https://github.com/riversun/chatux',
             size: {
                 width: 350,
                 height: 500,
@@ -127,7 +127,7 @@
 
                 if (userInputText === 'end') {
                     const consumed = true;
-                    chatkit.dispose();
+                    chatux.dispose();
                     return consumed;
                 }
             },
@@ -144,9 +144,8 @@
     };
 
     //initialize
-    chatkit.init(opt);
-    chatkit.start(true);
-
+    chatux.init(opt);
+    chatux.start(true);
 
 </script>
 

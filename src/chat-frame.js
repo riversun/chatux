@@ -1,5 +1,5 @@
 import {JSFrame} from 'jsframe';
-import {isMobileDevice} from './chat-kit-util.js';
+import {isMobileDevice} from './chat-ux-util.js';
 
 /**
  * To show chatWindow/chatArea and start/end button for chat interface
@@ -154,9 +154,9 @@ export default class ChatFrame {
         showChatBtn.id = this.BUTTON_ID;
 
         if (this.renderMode === 'mobile') {
-            showChatBtn.className = 'chatkit-btn-chat';
+            showChatBtn.className = 'chatux-btn-chat';
         } else {
-            showChatBtn.className = 'chatkit-btn-chat chatkit-btn-chat-pc';
+            showChatBtn.className = 'chatux-btn-chat chatux-btn-chat-pc';
         }
 
         showChatBtn.onclick = this.toggleChatButtonState.bind(this);
@@ -239,7 +239,7 @@ export default class ChatFrame {
 
             // on mobile device
             if (this.chatAreaEle) {
-                this.chatAreaEle.classList.replace('chatkit-scrn-off', 'chatkit-scrn-on');
+                this.chatAreaEle.classList.replace('chatux-scrn-off', 'chatux-scrn-on');
             }
 
             if (callback) {
@@ -277,7 +277,7 @@ export default class ChatFrame {
 
             // on mobile device
             if (this.chatAreaEle) {
-                this.chatAreaEle.classList.replace('chatkit-scrn-on', 'chatkit-scrn-off');
+                this.chatAreaEle.classList.replace('chatux-scrn-on', 'chatux-scrn-off');
             }
 
             if (callback) {
@@ -315,9 +315,9 @@ export default class ChatFrame {
     setChatButtonVisible(isVisible) {
         const chatButton = document.querySelector(`#${this.BUTTON_ID}`);
         if (isVisible) {
-            chatButton.classList.add('chatkit-btn-on');
+            chatButton.classList.add('chatux-btn-on');
         } else {
-            chatButton.classList.remove('chatkit-btn-on');
+            chatButton.classList.remove('chatux-btn-on');
 
         }
     }
@@ -341,7 +341,7 @@ export default class ChatFrame {
         this.chatAreaEle.style.height = '100vh';
         this.chatAreaEle.style.backgroundColor = 'transparent';
         this.chatAreaEle.style.display = 'flex';
-        this.chatAreaEle.classList.add('chatkit-scrn-off');
+        this.chatAreaEle.classList.add('chatux-scrn-off');
         this.chatAreaEle.innerHTML = this.getBotUiInnterHtml();
 
     }

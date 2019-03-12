@@ -28,12 +28,11 @@ https://riversun.github.io/chatux/
 <div style="padding:40px">
     <h1>chatux example</h1>
     <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-
 </div>
-<script src="chatux.min.js"></script>
+<script src="https://riversun.github.io/chatux/chatux.min.js"></script>
 <script>
 
-    const chatux = new ChatUX();
+    const chatux = new ChatUx();
 
     const opt = {
         api: {
@@ -54,17 +53,16 @@ https://riversun.github.io/chatux/
     chatux.init(opt);
     chatux.start(true);
 
-
 </script>
-
-
 </body>
 </html>
+
 
 ```
 
 
 ## install
+
 ### using npm
 
 ```

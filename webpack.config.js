@@ -17,7 +17,7 @@ module.exports = (env, argv) => {
             host: argv.mode === 'production' ? `0.0.0.0` : `localhost`,
             disableHostCheck: true
         },
-        entry: {'chat-kit': './src/index.js'},
+        entry: {'chatux': './src/index.js'},
         output: {
             path: path.join(__dirname, "dist"),
             publicPath: '/js/',

@@ -10,13 +10,13 @@ dom.watch();
 import Vue from 'vue';
 import ChatUI from './chat-ui.js';
 import ChatFrame from './chat-frame.js';
-import {isMobileDevice} from './chat-kit-util.js';
+import {isMobileDevice} from './chat-ux-util.js';
 
 import '../node_modules/botui/build/botui.min.css';
 import '../node_modules/botui/build/botui-theme-default.css';
 import './botui-theme-riversun.css';
 import './app.css';
-import png_icon_operator from './bot_icon_operator.png';
+
 
 /**
  * Easy to create Chat UI
@@ -25,7 +25,7 @@ import png_icon_operator from './bot_icon_operator.png';
  *
  * @author Tom Misawa (riversun.org@gmail.com)
  */
-export default class ChatKit {
+export default class ChatUx {
 
     constructor(opts) {
         if (opts) {
@@ -60,9 +60,9 @@ export default class ChatKit {
             methods = {};
         }
 
-        if (!botInfo.botPhoto) {
-            botInfo.botPhoto = png_icon_operator;
-        }
+        // if (!botInfo.botPhoto) {
+        //     botInfo.botPhoto = png_icon_operator;
+        // }
 
         this.ui = new ChatUI({
             holderId: this.holderEleId,
