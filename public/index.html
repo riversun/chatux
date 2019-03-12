@@ -45,7 +45,7 @@
         renderMode: 'auto',//'auto' or 'pc' or 'mobile'
         buttonOffWhenOpenFrame: false,//
         bot: {
-            wakeupText: null,
+            wakeupText: null,//user input which is automatically send to server on startup
             botPhoto: null,//URL of bot photo image
             humanPhoto: null,//URL of human photo image
             widget: {
@@ -145,7 +145,13 @@
 
     //initialize
     chatux.init(opt);
-    chatux.start(true);
+
+    let isAutoStartChat=true;
+    if (chatux.isMobileDevice()) {
+        isAutoStartChat=false;
+    }
+    
+    chatux.start(isAutoStartChat);
 
 </script>
 
