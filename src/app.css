@@ -1,0 +1,45 @@
+
+.chatkit-sp {
+    height: 100vh;
+}
+
+.chatkit-btn-chat-pc {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.chatkit-btn-chat {
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    position: fixed;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: transform 0.2s linear, opacity 0.3s;
+    transform: scale(0.9);
+    opacity: 0;
+}
+
+.chatkit-btn-chat:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+    transform: scale(1.0);
+
+}
+
+.chatkit-btn-on {
+    opacity: 1;
+}
+
+.chatkit-scrn-on {
+    transition: transform 0.2s linear, opacity 0.3s;
+    transform: scale(1.0);
+    opacity: 1;
+}
+
+.chatkit-scrn-off {
+    transition: transform 0.2s linear, opacity 0.3s;
+    transform: scale(0.0);
+    opacity: 0;
+}

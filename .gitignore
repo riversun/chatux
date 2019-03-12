@@ -1,0 +1,21 @@
+# for Eclipse
+.classpath
+.project
+.settings
+
+# for IDEA
+*.iml
+*.ipr
+*.iws
+.idea
+
+# for build
+target
+build
+
+# for  mac
+.DS_Store
+
+/bin/
+/node_modules/
+

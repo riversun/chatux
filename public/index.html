@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>chat-kit example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+</head>
+<body style="padding:0px;margin:0px;">
+<div style="padding:40px">
+    <h1>chat-kit example</h1>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Maecenas sed enim ut sem viverra aliquet eget. Eu feugiat pretium
+        nibh
+        ipsum consequat nisl vel. Pretium aenean pharetra magna ac placerat vestibulum lectus. Adipiscing elit pellentesque habitant morbi tristique senectus. Faucibus et molestie ac feugiat. Nunc
+        eget
+        lorem dolor sed viverra ipsum nunc aliquet. Id velit ut tortor pretium. Tristique senectus et netus et malesuada fames ac. Nisl condimentum id venenatis a condimentum vitae sapien
+        pellentesque.
+        Vestibulum lorem sed risus ultricies tristique nulla aliquet enim. Ridiculus mus mauris vitae ultricies. Id volutpat lacus laoreet non curabitur gravida arcu ac tortor. Id diam vel quam
+        elementum
+        pulvinar. Quam vulputate dignissim suspendisse in est ante in nibh. Varius sit amet mattis vulputate enim nulla aliquet porttitor. Tincidunt arcu non sodales neque sodales ut. Eu consequat ac
+        felis donec et odio pellentesque diam volutpat. Nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum.
+
+        Nibh venenatis cras sed felis. Penatibus et magnis dis parturient montes nascetur ridiculus mus. Dolor sit amet consectetur adipiscing elit ut aliquam. Tellus molestie nunc non blandit massa
+        enim
+        nec dui nunc. Risus commodo viverra maecenas accumsan lacus vel facilisis. Senectus et netus et malesuada fames ac. Vitae elementum curabitur vitae nunc sed velit. Feugiat in ante metus dictum
+        at
+        tempor commodo ullamcorper. Ridiculus mus mauris vitae ultricies leo integer malesuada nunc. Et tortor consequat id porta nibh venenatis. Aenean et tortor at risus viverra adipiscing at. Nulla
+        aliquet enim tortor at auctor urna nunc id. In fermentum et sollicitudin ac orci phasellus egestas tellus rutrum. Risus in hendrerit gravida rutrum quisque. Turpis in eu mi bibendum neque
+        egestas
+        congue quisque egestas. Tincidunt arcu non sodales neque sodales.
+
+        Vivamus arcu felis bibendum ut tristique et. Et odio pellentesque diam volutpat. Velit dignissim sodales ut eu sem integer vitae justo. Sed velit dignissim sodales ut. Sit amet commodo nulla
+        facilisi. Duis ultricies lacus sed turpis tincidunt id aliquet. Gravida arcu ac tortor dignissim. Nunc non blandit massa enim nec. Eget magna fermentum iaculis eu non diam phasellus
+        vestibulum.
+        Tincidunt arcu non sodales neque. Donec adipiscing tristique risus nec feugiat in fermentum posuere urna. Sit amet nulla facilisi morbi tempus iaculis urna id volutpat. Nunc sed blandit libero
+        volutpat.
+
+</div>
+<script src="js/chat-kit.js"></script>
+<script>
+
+    const chatkit = new ChatKit();
+
+    const opt = {
+        renderMode: 'pc',//'auto' or 'pc' or 'mobile'
+        buttonOffWhenOpenFrame: false,//
+        bot: {
+            wakeupText: null,
+            botPhoto: null,
+            humanPhoto: null,
+            widget: {
+                sendLabel: 'SEND',
+                placeHolder: 'Say something'
+            }
+        },
+        api: {
+            endpoint: 'https://script.google.com/macros/s/AKfycbwpf8iZfGXkJD6K__oCVQYF35HLBQjYxmKP0Ifrpe_piK4By4rh/exec',
+            method: 'GET',
+            dataType: 'jsonp',
+            errorResponse: {
+                output: [
+                    {type: 'text', value: 'Sorry, an error occurred'}
+                ]
+            }
+        },
+        window: {
+            title: 'My chat',
+            infoUrl: 'https://github.com/riversun/chat-kit',
+            size: {
+                width: 350,
+                height: 500,
+                minWidth: 300,
+                minHeight: 300,
+                titleHeight: 50
+            },
+            appearance: {
+                border: {
+                    shadow: '2px 2px 10px  rgba(0, 0, 0, 0.5)',
+                    width: 0,
+                    radius: 6
+                },
+                titleBar: {
+                    fontSize: 14,
+                    color: 'white',
+                    background: '#4784d4',
+                    leftMargin: 40,
+                    height: 40,
+                    buttonWidth: 36,
+                    buttonHeight: 16,
+                    buttonColor: 'white',
+                    buttons: [
+                        {
+                            fa: 'fas fa-times',
+                            name: 'hideButton',
+                            visible: true
+                        }
+                    ],
+                    buttonsOnLeft: [
+                        {
+                            fa: 'fas fa-comment-alt',
+                            name: 'info',
+                            visible: true
+                        }
+                    ],
+                },
+            }
+        },
+        wakeupButton: {
+            right: 20,
+            bottom: 20,
+            size: 60,
+            fontSize: 25
+        },
+        methods: {
+            onChatWindowCreate: (win) => {
+                console.log('#onChatWindowCreate');
+            },
+            onChatWindowPause: (win) => {
+                console.log('#onChatWindowPause');
+            },
+            onChatWindowResume: (win) => {
+                console.log('#onChatWindowResume');
+            },
+            onUserInput: (userInputText) => {
+
+                console.log('#onUserInput userInputText=' + userInputText);
+
+                if (userInputText === 'end') {
+                    const consumed = true;
+                    chatkit.dispose();
+                    return consumed;
+                }
+            },
+            //For local test, get the user input text but stop accessing the chat server.
+            // onServerProcess: (userInputText) => {
+            //     const response = {"output": [{"type": "text", "value": 'You said "' + userInputText + '"'}]};
+            //     return response;
+            // },
+            onServerResponse: (response) => {
+                console.log('#onServerResponse response=' + JSON.stringify(response));
+                return response;
+            }
+        }
+    };
+
+    //initialize
+    chatkit.init(opt);
+    chatkit.start(true);
+
+
+</script>
+
+
+</body>
+</html>
