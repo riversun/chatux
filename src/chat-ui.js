@@ -10,7 +10,7 @@ import BotUI from 'botui';
 export default class ChatUI {
 
     constructor(opts) {
-        
+
         this.opts = opts;
         this.isStarted = false;
         this.botui = null;
@@ -23,7 +23,6 @@ export default class ChatUI {
                 placeHolder: 'Please input text.'
             }
         }
-
     }
 
     initialize() {

@@ -334,16 +334,15 @@ export default class ChatFrame {
     }
 
     initializeChatArea() {
-        this.chatAreaEle.style.position = 'absolute';
+        this.chatAreaEle.style.position = 'fixed';
         this.chatAreaEle.style.left = '0px';
         this.chatAreaEle.style.top = '0px';
-        this.chatAreaEle.style.width = '100%';
-        this.chatAreaEle.style.height = '100vh';
+        this.chatAreaEle.style.bottom = '0px';
+        this.chatAreaEle.style.right = '0px';
         this.chatAreaEle.style.backgroundColor = 'transparent';
         this.chatAreaEle.style.display = 'flex';
         this.chatAreaEle.classList.add('chatux-scrn-off');
         this.chatAreaEle.innerHTML = this.getBotUiInnterHtml();
-
     }
 
     /**
