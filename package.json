@@ -1,6 +1,6 @@
 {
-  "name": "chat-kit",
-  "version": "1.0.0",
+  "name": "chatux",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,12 +14,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/riversun/chat-kit.git"
+    "url": "git+https://github.com/riversun/chatux.git"
   },
   "bugs": {
-    "url": "https://github.com/riversun/chat-kit/issues"
+    "url": "https://github.com/riversun/chatux/issues"
   },
-  "homepage": "https://github.com/riversun/chat-kit#readme",
+  "homepage": "https://github.com/riversun/chatux#readme",
   "devDependencies": {
     "@babel/core": "^7.1.5",
     "@babel/preset-env": "^7.1.5",
