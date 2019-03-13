@@ -1,8 +1,8 @@
 {
   "name": "chatux",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
-  "main": "index.js",
+  "main": "dist/chatux.min.js",
   "scripts": {
     "start": "webpack-dev-server",
     "startr": "set NODE_ENV=test&&webpack-dev-server --config webpack.config.js --mode production",
