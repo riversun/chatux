@@ -193,25 +193,26 @@ export default class ChatUI {
 
             } else if (resType == "image") {
 
+                const type = null;
+                const contentValue = '![image](' + message.value + ')';
+                this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
 
-                if (outIdx == 0) {
-                    //In the case of the first message,
-                    // remove the loading icon and show message
-                    this.botui.message.update(loadingIconMsgIdx, {
-                        loading: false,
-                        photo: true,
-                        content: '![image](' + message.value + ')'
-                    });
+            } else if (resType == "youtube") {
+                const type = 'embed';
+                const youtubeId = message.value;
+                const contentValue = `<iframe src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
 
-                } else {
-                    this.botui.message.add({
-                        delay: delayMs,
-                        photo: true,
-                        content: '![image](' + message.value + ')'
-                    });
-                }
+            } else if (resType == "embed") {
 
+                const type = 'embed';
+                const contentValue = message.value;
+                this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
 
+            } else if (resType == "html") {
+                const type = 'html';
+                const contentValue = message.value;
+                this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
             } else if (resType == "option") {
 
                 const opts = message.options;
@@ -281,6 +282,28 @@ export default class ChatUI {
         // display user input box
         if (!isUserInputConsumed) {
             this.showInputPrompt();
+        }
+    }
+
+    handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs) {
+
+        if (outIdx == 0) {
+            //In the case of the first message,
+            // remove the loading icon and show message
+            this.botui.message.update(loadingIconMsgIdx, {
+                type: type,
+                loading: false,
+                photo: true,
+                content: contentValue
+            });
+
+        } else {
+            this.botui.message.add({
+                type: type,
+                delay: delayMs,
+                photo: true,
+                content: contentValue
+            });
         }
     }
 }
