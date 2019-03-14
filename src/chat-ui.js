@@ -174,8 +174,6 @@ export default class ChatUI {
             if (resType == "text") {
 
                 if (outIdx == 0) {
-
-
                     //In the case of the first message,
                     // remove the loading icon and show message
                     this.botui.message.update(loadingIconMsgIdx, {
@@ -195,11 +193,23 @@ export default class ChatUI {
 
             } else if (resType == "image") {
 
-                this.botui.message.add({
-                    delay: delayMs,
-                    photo: true,
-                    content: '![image](' + message.value + ')'
-                });
+
+                if (outIdx == 0) {
+                    //In the case of the first message,
+                    // remove the loading icon and show message
+                    this.botui.message.update(loadingIconMsgIdx, {
+                        loading: false,
+                        photo: true,
+                        content: '![image](' + message.value + ')'
+                    });
+
+                } else {
+                    this.botui.message.add({
+                        delay: delayMs,
+                        photo: true,
+                        content: '![image](' + message.value + ')'
+                    });
+                }
 
 
             } else if (resType == "option") {
@@ -238,16 +248,32 @@ export default class ChatUI {
 
                 isUserInputConsumed = true;
 
+                if (outIdx == 0) {
+                    //In the case of the first message,
+                    // remove the loading icon and show message
+                    this.botui.message.remove(loadingIconMsgIdx).then(() => {
+                            return this.botui.action.button({
+                                autoHide: true,//true:Automatically hide when pushing the button
+                                delay: delayMs,
+                                action: optActions
+                            });
+                        }
+                    ).then(
+                        //Handling of pushing of action button
+                        this.handleUserInput.bind(this)
+                    );
 
-                //Show action buttons
-                this.botui.action.button({
-                    autoHide: true,//true:Automatically hide when pushing the button
-                    delay: delayMs,
-                    action: optActions
-                }).then(
-                    //Handling of pushing of action button
-                    this.handleUserInput.bind(this)
-                );
+                } else {
+                    //Show action buttons
+                    this.botui.action.button({
+                        autoHide: true,//true:Automatically hide when pushing the button
+                        delay: delayMs,
+                        action: optActions
+                    }).then(
+                        //Handling of pushing of action button
+                        this.handleUserInput.bind(this)
+                    );
+                }
             }
         }
 
@@ -257,6 +283,4 @@ export default class ChatUI {
             this.showInputPrompt();
         }
     }
-
-
 }
