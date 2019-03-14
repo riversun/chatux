@@ -1,7 +1,7 @@
 import {library, dom} from "@fortawesome/fontawesome-svg-core";
 import {faTimes} from "@fortawesome/free-solid-svg-icons/faTimes";
 import {faCommentAlt} from "@fortawesome/free-solid-svg-icons/faCommentAlt";
-
+import {JSFrame} from 'jsframe';
 // Add specific icons from font awesome
 library.add(faTimes, faCommentAlt);
 dom.watch();
@@ -70,7 +70,7 @@ export default class ChatUx {
             vue: Vue,
             api: opts.api,
             methods: methods,
-
+            parent: this
         });
 
         this.chatFrame = new ChatFrame({
@@ -112,6 +112,72 @@ export default class ChatUx {
                 methods.onChatWindowPause(frame);
             }
         };
+    }
+
+    getRenderMode() {
+        return this.chatFrame.renderMode;
+    }
+
+    handleServerMessage(message) {
+
+        //get jsFrame instance
+        const jsFrameForChatWindow = this.chatFrame.jsFrame;
+
+        if (!this.jsFrame) {
+            this.jsFrame = new JSFrame({
+                horizontalAlign: 'left',
+                verticalAlign: 'top',
+                fixed: false
+            });
+        }
+
+        document.onmouseup = (e) => {
+            jsFrameForChatWindow.windowManager.windowMouseUp(e);
+            this.jsFrame.windowManager.windowMouseUp(e);
+        };
+
+        document.onmousemove = (e) => {
+            jsFrameForChatWindow.windowManager.windowMouseMove(e);
+            this.jsFrame.windowManager.windowMouseMove(e);
+        };
+
+        //get chat window instance
+        const chatWin = this.chatFrame.frame;
+        const chatWinStyle = this.chatFrame.appearanceParam;
+        chatWinStyle.titleBar.leftMargin = '10px';
+        chatWinStyle.titleBar.buttonsOnLeft[0].visible = false;
+        const chatWinPos = chatWin.getPosition();
+
+        //prepare detailed window
+        const browserWidth = window.innerWidth;
+        const detailWinWidth = message.width ? message.width : 400;
+        const detailWinHeight = message.height ? message.height : 400;
+        const detailWinLeft = 32;
+        const detailWinTop = 32 + parseInt(window.pageYOffset);
+        const detailWin = this.jsFrame.create({
+            name: 'new',
+            title: message.title ? message.title : '',
+            left: detailWinLeft,
+            top: detailWinTop,
+            width: detailWinWidth,
+            height: detailWinHeight,
+            minWidth: 100,
+            minHeight: 100,
+            appearanceName: 'material',
+            appearanceParam: chatWinStyle,
+            style: {
+                backgroundColor: 'rgba(255,255,255,1.0)',
+                overflow: 'auto'
+            },
+            url: message.url
+        });
+
+        detailWin.on('hideButton', 'click', (_frame, evt) => {
+            detailWin.closeFrame();
+        });
+
+        detailWin.show();
+
     }
 
     start(openFlag) {

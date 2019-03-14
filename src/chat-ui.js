@@ -153,7 +153,7 @@ export default class ChatUI {
             }
         }
 
-        const msgInterval = 500;
+        const msgInterval = this.opts.msgInterval ? this.opts.msgInterval : 500;
         const out = serverResponse.output;
 
         let isUserInputConsumed = false;
@@ -198,6 +198,7 @@ export default class ChatUI {
                 this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
 
             } else if (resType == "youtube") {
+
                 const type = 'embed';
                 const youtubeId = message.value;
                 const contentValue = `<iframe src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
@@ -210,9 +211,44 @@ export default class ChatUI {
                 this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
 
             } else if (resType == "html") {
+
                 const type = 'html';
                 const contentValue = message.value;
                 this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
+
+            } else if (resType == "window" && (this.opts.parent && this.opts.parent.getRenderMode()==='pc')) {
+
+                let _delayMs = delayMs;
+
+                if (!_delayMs) {
+                    _delayMs = 1;
+                }
+
+                if (this.opts.parent) {
+
+                    const func = (callback) => {
+                        setTimeout(
+                            () => {
+                                this.opts.parent.handleServerMessage(message);
+                                if (callback) {
+                                    callback();
+                                }
+                            },
+                            _delayMs);
+                    };
+
+                    if (outIdx == 0) {
+                        //In the case of the first message,
+                        // remove the loading icon and show message
+                        this.botui.message.remove(loadingIconMsgIdx).then(() => {
+                            func();
+                        });
+                    } else {
+                        func();
+                    }
+
+                }
+
             } else if (resType == "option") {
 
                 const opts = message.options;
