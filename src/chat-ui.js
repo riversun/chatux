@@ -216,7 +216,7 @@ export default class ChatUI {
                 const contentValue = message.value;
                 this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
 
-            } else if (resType == "window" && (this.opts.parent && this.opts.parent.getRenderMode()==='pc')) {
+            } else if (resType == "window" && (this.opts.parent && this.opts.parent.getRenderMode() === 'pc')) {
 
                 let _delayMs = delayMs;
 
@@ -229,7 +229,7 @@ export default class ChatUI {
                     const func = (callback) => {
                         setTimeout(
                             () => {
-                                this.opts.parent.handleServerMessage(message);
+                                this.opts.parent.createWindowFromServerMessage(message);
                                 if (callback) {
                                     callback();
                                 }
@@ -248,6 +248,39 @@ export default class ChatUI {
                     }
 
                 }
+            } else if (resType == "window" && (this.opts.parent && this.opts.parent.getRenderMode() === 'mobile')) {
+
+                const type = 'html';
+                let contentValue = null;
+                let title = null;
+
+                if (message.url || message.mobileUrl) {
+
+                    if (message.url) {
+                        //url
+                        title = `${message.url}`;
+                        contentValue = `<a href="${message.url}" target="_blank">${title}</a>`;
+                    }
+
+                    if (message.mobileUrl) {
+                        //mobileUrl
+                        title = `${message.mobileUrl}`;
+                        contentValue = `<a href="${message.mobileUrl}" target="_blank">${title}</a>`;
+                    }
+
+                    if (message.title) {
+                        title = message.title;
+                    }
+
+                    this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
+
+                } else {
+                    //html
+                    contentValue = message.html ? message.html : 'No data';
+
+                    this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
+                }
+
 
             } else if (resType == "option") {
 

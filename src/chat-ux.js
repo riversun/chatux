@@ -118,7 +118,7 @@ export default class ChatUx {
         return this.chatFrame.renderMode;
     }
 
-    handleServerMessage(message) {
+    createWindowFromServerMessage(message) {
 
         //get jsFrame instance
         const jsFrameForChatWindow = this.chatFrame.jsFrame;
@@ -131,6 +131,7 @@ export default class ChatUx {
             });
         }
 
+        //override jsframe mouse intercepter for supporting multiple jsframe
         document.onmouseup = (e) => {
             jsFrameForChatWindow.windowManager.windowMouseUp(e);
             this.jsFrame.windowManager.windowMouseUp(e);
@@ -150,28 +151,34 @@ export default class ChatUx {
 
         //prepare detailed window
         const browserWidth = window.innerWidth;
-        const detailWinWidth = message.width ? message.width : 400;
-        const detailWinHeight = message.height ? message.height : 400;
-        const detailWinLeft = 32;
-        const detailWinTop = 32 + parseInt(window.pageYOffset);
+        const dtWinWidth = message.width ? message.width : 400;
+        const dtWinHeight = message.height ? message.height : 400;
+        const dtWinLeft = message.left ? message.left : 32;
+        const dtWinYOffset = message.addYOffset;
+        const dtWinTop = message.top ? message.top + (dtWinYOffset ? parseInt(window.pageYOffset) : 0) : 32 + (dtWinYOffset ? parseInt(window.pageYOffset) : 0);
+        const dtWinBackgroundColor = message.backgroundColor ? message.backgroundColor : 'rgba(255,255,255,1.0)';
+        const dtWinOverflow = message.overflow ? message.overflow : 'auto';
+
         const detailWin = this.jsFrame.create({
             name: 'new',
             title: message.title ? message.title : '',
-            left: detailWinLeft,
-            top: detailWinTop,
-            width: detailWinWidth,
-            height: detailWinHeight,
+            left: dtWinLeft,
+            top: dtWinTop,
+            width: dtWinWidth,
+            height: dtWinHeight,
             minWidth: 100,
             minHeight: 100,
             appearanceName: 'material',
             appearanceParam: chatWinStyle,
             style: {
-                backgroundColor: 'rgba(255,255,255,1.0)',
-                overflow: 'auto'
+                backgroundColor: dtWinBackgroundColor,
+                overflow: dtWinOverflow
             },
-            url: message.url
+            url: message.url,
+            html: message.html
         });
 
+        //set cross mark click handler
         detailWin.on('hideButton', 'click', (_frame, evt) => {
             detailWin.closeFrame();
         });
