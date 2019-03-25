@@ -1,6 +1,6 @@
-import {library, dom} from "@fortawesome/fontawesome-svg-core";
-import {faTimes} from "@fortawesome/free-solid-svg-icons/faTimes";
-import {faCommentAlt} from "@fortawesome/free-solid-svg-icons/faCommentAlt";
+import {library, dom} from '@fortawesome/fontawesome-svg-core';
+import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';
+import {faCommentAlt} from '@fortawesome/free-solid-svg-icons/faCommentAlt';
 import {JSFrame} from 'jsframe';
 // Add specific icons from font awesome
 library.add(faTimes, faCommentAlt);
@@ -188,10 +188,13 @@ export default class ChatUx {
     }
 
     start(openFlag) {
-        this.chatFrame.build(this.holderEleId);
+
         if (openFlag) {
             this.autoOpen = openFlag;
         }
+        
+        this.chatFrame.build(this.holderEleId);
+
     }
 
     dispose() {

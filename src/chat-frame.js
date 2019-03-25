@@ -330,7 +330,6 @@ export default class ChatFrame {
         this.chatAreaEle = document.createElement('div');
         document.body.appendChild(this.chatAreaEle);
         this.initializeChatArea();
-        this.onChatFrameCreate();
     }
 
     initializeChatArea() {
@@ -440,13 +439,15 @@ export default class ChatFrame {
         if (this.renderMode === 'mobile') {
             // on mobile device
             this.buildChatArea();
+            this.buildChatButton();
+            this.onChatFrameCreate();
         } else {
             //on PC
             this.buildChatWindow();
             this.frame.setHTML(this.getBotUiInnterHtml());
+            this.buildChatButton();
         }
-
-        this.buildChatButton();
+        
         this.setChatButtonVisible(true);
     }
 
