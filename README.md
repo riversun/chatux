@@ -3,6 +3,8 @@
 
 It is licensed under [MIT](https://opensource.org/licenses/MIT) license.
 
+[![npm version](https://badge.fury.io/js/chatux.svg)](https://badge.fury.io/js/chatux)
+
 ###  What is '**chatux**' like?
 It is an independent and lightweight chat user interface (chat UI) library for javascript.
 
