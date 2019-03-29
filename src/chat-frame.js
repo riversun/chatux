@@ -134,7 +134,7 @@ export default class ChatFrame {
         this.onChatFrameResume = () => {
         };
 
-        this.holderId = "";
+        this.holderId = '';
 
     }
 
@@ -198,7 +198,7 @@ export default class ChatFrame {
 
             this.show(() => {
 
-                if (this.buttonOffWhenOpenFrame) {
+                if (this.buttonOffWhenOpenFrame && this.renderMode === 'pc') {
                     this.setChatButtonVisible(false);
                 } else {
                     showChatBtn.innerHTML = this.ICON_CROSSMARK;
@@ -217,7 +217,7 @@ export default class ChatFrame {
 
             this.hide(() => {
 
-                if (this.buttonOffWhenOpenFrame) {
+                if (this.buttonOffWhenOpenFrame && this.renderMode === 'pc') {
                     this.setChatButtonVisible(true);
                 } else {
                     showChatBtn.innerHTML = this.ICON_COMMENT;
@@ -358,7 +358,7 @@ export default class ChatFrame {
     buildChatWindow() {
 
         const param = this.frameParam;
-        const size = this.windowSizeParam
+        const size = this.windowSizeParam;
         const frmWidth = size.width;
         const frmHeight = size.height;
         const frmHeightMin = size.minHeight;
@@ -432,7 +432,7 @@ export default class ChatFrame {
      * Build Chat UI and related components like wakeup button
      * @param holderEleId
      */
-    build(holderEleId) {
+    build(holderEleId, isAutoOpen) {
 
         this.holderId = holderEleId;
 
@@ -441,13 +441,14 @@ export default class ChatFrame {
             this.buildChatArea();
             this.buildChatButton();
             this.onChatFrameCreate();
+
         } else {
             //on PC
             this.buildChatWindow();
             this.frame.setHTML(this.getBotUiInnterHtml());
             this.buildChatButton();
+
         }
-        
         this.setChatButtonVisible(true);
     }
 

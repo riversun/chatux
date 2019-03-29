@@ -710,7 +710,7 @@ You can customize the behavior of ChatUX as you like.
     //init parameters
     const opt = {
         renderMode: 'auto',//'auto' or 'pc' or 'mobile'
-        buttonOffWhenOpenFrame: false,//true:Turn off wakeup button when the chat window is opened
+        buttonOffWhenOpenFrame: false,//true:Turn off wakeup button when the chat window is opened.only for pc mode.
         bot: {
             wakeupText: null,//user input which is automatically send to server on startup
             botPhoto: null,//URL of bot photo image
