@@ -1,5 +1,12 @@
 import $ from 'jquery';
 
+/**
+ * ChatClient
+ *
+ * MIT License
+ *
+ * @author Tom Misawa (riversun.org@gmail.com,https://github.com/riversun)
+ */
 export default class ChatClient {
 
     constructor(opts) {
@@ -17,7 +24,7 @@ export default class ChatClient {
 
         this.errorResponse = {
             output: [
-                {type: "text", value: "An error occurred."}
+                {type: 'text', value: 'An error occurred.'}
             ]
         };
         if (opts.errorResponse) {

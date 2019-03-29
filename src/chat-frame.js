@@ -4,7 +4,9 @@ import {isMobileDevice} from './chat-ux-util.js';
 /**
  * To show chatWindow/chatArea and start/end button for chat interface
  *
- * @author Tom Misawa (riversun.org@gmail.com)
+ * MIT License
+ *
+ * @author Tom Misawa (riversun.org@gmail.com,https://github.com/riversun)
  */
 export default class ChatFrame {
 

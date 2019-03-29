@@ -3,9 +3,11 @@ import BotUI from 'botui';
 
 
 /**
- * Chat user interface powered by BotUI ( forked ver. on https://github.com/riversun/botui)
+ * Chat user interface powered by BotUI (forked ver. on https://github.com/riversun/botui)
+ *
  * MIT License
- * @author Tom Misawa (riversun.org@gmail.com)
+ *
+ * @author Tom Misawa (riversun.org@gmail.com,https://github.com/riversun)
  */
 export default class ChatUI {
 
@@ -21,7 +23,7 @@ export default class ChatUI {
             this.botInfo.widget = {
                 sendLabel: 'SEND',
                 placeHolder: 'Please input text.'
-            }
+            };
         }
     }
 
@@ -171,7 +173,7 @@ export default class ChatUI {
                 delayMs += message.delayMs;
             }
 
-            if (resType == "text") {
+            if (resType == 'text') {
 
                 if (outIdx == 0) {
                     //In the case of the first message,
@@ -191,32 +193,32 @@ export default class ChatUI {
                     });
                 }
 
-            } else if (resType == "image") {
+            } else if (resType == 'image') {
 
                 const type = null;
                 const contentValue = '![image](' + message.value + ')';
                 this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
 
-            } else if (resType == "youtube") {
+            } else if (resType == 'youtube') {
 
                 const type = 'embed';
                 const youtubeId = message.value;
                 const contentValue = `<iframe src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
                 this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
 
-            } else if (resType == "embed") {
+            } else if (resType == 'embed') {
 
                 const type = 'embed';
                 const contentValue = message.value;
                 this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
 
-            } else if (resType == "html") {
+            } else if (resType == 'html') {
 
                 const type = 'html';
                 const contentValue = message.value;
                 this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
 
-            } else if (resType == "window" && (this.opts.parent && this.opts.parent.getRenderMode() === 'pc')) {
+            } else if (resType == 'window' && (this.opts.parent && this.opts.parent.getRenderMode() === 'pc')) {
 
                 let _delayMs = delayMs;
 
@@ -248,7 +250,7 @@ export default class ChatUI {
                     }
 
                 }
-            } else if (resType == "window" && (this.opts.parent && this.opts.parent.getRenderMode() === 'mobile')) {
+            } else if (resType == 'window' && (this.opts.parent && this.opts.parent.getRenderMode() === 'mobile')) {
 
                 const type = 'html';
                 let contentValue = null;
@@ -282,11 +284,11 @@ export default class ChatUI {
                 }
 
 
-            } else if (resType == "option") {
+            } else if (resType == 'option') {
 
                 const opts = message.options;
 
-                let aboutOption = "";
+                let aboutOption = '';
 
                 if (aboutOption.length > 0) {
                     if (outIdx == 0) {

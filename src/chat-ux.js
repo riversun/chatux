@@ -23,7 +23,7 @@ import './app.css';
  *
  * MIT License
  *
- * @author Tom Misawa (riversun.org@gmail.com)
+ * @author Tom Misawa (riversun.org@gmail.com,https://github.com/riversun)
  */
 export default class ChatUx {
 
