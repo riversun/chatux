@@ -10,13 +10,13 @@ export default class AjaxClient {
     constructor() {
     }
 
-    ajax(opt) {
+    ajax(options) {
 
-        const url = this._createUrl(opt);
-        const method = opt.type;
-        const dataType = opt.dataType;
-        const data = opt.data;
-        const headers = opt.headers;
+        const url = this._createUrl(options);
+        const method = options.type;
+        const dataType = options.dataType;
+        const data = options.data;
+        const headers = options.headers;
 
         let postBody = null;
 
@@ -124,17 +124,18 @@ export default class AjaxClient {
 
     }
 
-    _createUrl(opts) {
-        if (opt.type === 'POST') {
+    _createUrl(options) {
+
+        if (options.type === 'POST') {
             //POST
-            return opts.url;
+            return options.url;
         } else {
             //GET
-            let url = opts.url;
-            if (opts.data) {
+            let url = options.url;
+            if (options.data) {
                 url = url + '?';
-                for (let paramKey of Object.keys(opts.data)) {
-                    const paramVal = opts.data[paramKey];
+                for (let paramKey of Object.keys(options.data)) {
+                    const paramVal = options.data[paramKey];
                     url += `${paramKey}=${paramVal}&`;
                 }
                 url = url.substring(0, url.length - 1);
