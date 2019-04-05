@@ -1,4 +1,3 @@
-//import $ from 'jquery';
 import AjaxClient from './ajax-client.js';
 
 /**
@@ -33,16 +32,6 @@ export default class ChatClient {
         }
     }
 
-    createUUID() {
-        const dt = new Date().getTime();
-        const uuid = 'xxxxxxxx_xxxx_4xxx_yxxx_xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            const r = (dt + Math.random() * 16) % 16 | 0;
-            //dt = Math.floor(dt / 16);
-            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-        });
-        return uuid;
-    }
-
     sendMsgToChatServer(userInputText, callbackFunc) {
 
         const ac = new AjaxClient();
@@ -59,28 +48,6 @@ export default class ChatClient {
             const errorResponse = this.errorResponse;
             callbackFunc(errorResponse);
         });
-
-        // remove jQuery dependency
-        // $.ajax({
-        //     type: this.method,
-        //     url: this.endpoint,
-        //     dataType: this.dataType,
-        //     data: {
-        //         text: userInputText,
-        //     }
-        // }).done(response => {
-        //
-        //     callbackFunc(response);
-        //
-        // }).fail(() => {
-        //
-        //     const errorResponse = this.errorResponse;
-        //
-        //     callbackFunc(errorResponse);
-        //
-        // });
-
-
     }
 }
 
