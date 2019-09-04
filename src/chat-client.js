@@ -30,6 +30,10 @@ export default class ChatClient {
         if (opts.errorResponse) {
             this.errorResponse = opts.errorResponse;
         }
+
+        if (opts.headers) {
+            this.headers = opts.headers;
+        }
     }
 
     sendMsgToChatServer(userInputText, callbackFunc) {
@@ -41,7 +45,8 @@ export default class ChatClient {
             dataType: this.dataType,
             data: {
                 text: userInputText,
-            }
+            },
+            headers: this.headers
         }).done(response => {
             callbackFunc(response);
         }).fail((err) => {
