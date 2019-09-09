@@ -207,7 +207,7 @@ const port = 8080;
 // enabling CORS
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept');
+    res.header('Access-Control-Allow-Headers', '*');
     next();
 });
 app.get('/chat', function (req, res) {
@@ -266,6 +266,107 @@ chatux.start(true);//true:automatically open chat
 ![image](https://user-images.githubusercontent.com/11747460/54860945-e379f600-4d64-11e9-9f23-1636343f3607.png)
 
 <hr>
+
+# Custom query parameters
+
+There are two approaches to specifying query parameters.
+
+1.Custom query parameters can be set at initialization.
+
+```js
+chatux.init({
+    api: {
+        endpoint: 'http://localhost:8080/chat',
+        method: 'GET',
+        dataType: 'json',
+        params:{
+            'param1':'value1',
+            'param2':'value2'
+        }
+    }
+});
+
+```
+
+chat ux will send parameters like 'https://example.com/api?param1=value1&param2=value2' 
+
+2.Custom parameters can be set at each request.
+
+
+```js
+chatux.init({
+    api: {
+        endpoint: 'http://localhost:8080/chat',
+        method: 'GET',
+        dataType: 'json',
+        },
+     methods:{
+        onPrepareRequest: (httpClient) => {
+            //intercept http request before sending and set query parameters
+            httpClient.params.param1 = 'value1';
+            httpClient.params.param2 = 'value2';
+        },
+        onFinishRequest: (httpClient) => {
+            //delete params after sending
+            delete httpClient.params.param1;
+            delete httpClient.params.param2;
+        }
+     }   
+});
+
+```
+
+If nothing is set, only the query parameter named 'text' will be set when you tap send button. 
+
+# Custom Http Headers
+
+There are two approaches to set http headers.
+
+
+1.Custom headeres can be set at initialization.
+
+You can specify http-headers like as follows.
+
+```js
+chatux.init({
+    api: {
+        endpoint: 'http://localhost:8080/chat',
+        method: 'GET',
+        dataType: 'json',
+        headers:{
+            'Authorization':'Bearer ABCD123ABCD123ABCD123',
+            'X-Additional-Headers':'something_value'
+        }
+    }
+});
+
+```
+
+2.Custom headers can be set at each request.
+
+
+```js
+chatux.init({
+    api: {
+        endpoint: 'http://localhost:8080/chat',
+        method: 'GET',
+        dataType: 'json',
+        },
+     methods:{
+        onPrepareRequest: (httpClient) => {
+            httpClient.headers={};
+            httpClient.headers['Authorization'] = 'Bearer ABCD123ABCD123ABCD123';
+            httpClient.headers['X-Additional-Headers'] = 'something_value';
+        }
+     }   
+});
+
+```
+
+
+ **Note**
+ - Http headers cannot be sent when using jsonp.
+ - Don't forget 'Access-Control-Allow-Headers' when accessing with cors :)
 
 # How to render a chat UI
 
@@ -698,6 +799,7 @@ app.get('/chat', function (req, res) {
 ![image](https://user-images.githubusercontent.com/11747460/54411133-9200b400-4731-11e9-8270-f79d318c3252.png)
 
 
+
 # Initialization parameters
 
 The following example shows all **ChatUX** initialization parameters.
@@ -729,6 +831,16 @@ You can customize the behavior of ChatUX as you like.
                     //Message displayed when a network error occurs when accessing the chat server
                     {type: 'text', value: 'Sorry, an error occurred'}
                 ]
+            },
+            //set http headers
+            headers:{
+                'Authorization':'Bearer ABCD123ABCD123ABCD123',
+                'X-Additional-Headers':'something_value'
+            },
+            //set query parameters            
+            params:{
+                  'param1':'value1',
+                  'param2':'value2'
             }
         },
         window: {
@@ -818,6 +930,12 @@ You can customize the behavior of ChatUX as you like.
             //     const response = {"output": [{"type": "text", "value": 'You said "' + userInputText + '"'}]};
             //     return response;
             // },
+            // onPrepareRequest: (httpClient) => {
+            //     httpClient.params.mykey1 = 'valOfmykey1';//set original query param
+            // },
+            // onFinishRequest: (httpClient) => {
+            //     delete httpClient.params.mykey1;
+            // },            
             onServerResponse: (response) => {
                 //A callback that occurs when there is a response from the chat server.
                 // You can handle server responses before reflecting them in the chat UI.
