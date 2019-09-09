@@ -31,6 +31,12 @@ export default class AjaxClient {
             }
         }
 
+        if (headers && dataType === 'jsonp') {
+            //http-headers and jsonp specified
+            throw new Error(`'headers' and 'dataType:jsonp' can not be specified together.
+           Http headers cannot be sent when using jsonp.`);
+        }
+
         const reqParam = {
             url: url,
             method: method,

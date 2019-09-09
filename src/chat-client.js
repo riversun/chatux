@@ -27,6 +27,7 @@ export default class ChatClient {
                 {type: 'text', value: 'An error occurred.'}
             ]
         };
+
         if (opts.errorResponse) {
             this.errorResponse = opts.errorResponse;
         }
@@ -34,18 +35,30 @@ export default class ChatClient {
         if (opts.headers) {
             this.headers = opts.headers;
         }
+
+        if (opts.params) {
+            this.params = opts.params;
+        }
     }
 
-    sendMsgToChatServer(userInputText, callbackFunc) {
+    sendMsgToChatServer(callbackFunc) {
 
         const ac = new AjaxClient();
+
+        let params;
+
+        if (this.params) {
+            params = this.params;
+        } else {
+            params = {};
+        }
+
+        
         ac.ajax({
             type: this.method,
             url: this.endpoint,
             dataType: this.dataType,
-            data: {
-                text: userInputText,
-            },
+            data: params,
             headers: this.headers
         }).done(response => {
             callbackFunc(response);

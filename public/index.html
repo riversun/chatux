@@ -61,7 +61,17 @@
                 output: [
                     {type: 'text', value: 'Sorry, an error occurred'}
                 ]
-            }
+            },
+            //you can set custom HTTP-header
+            // headers: {
+            //     'X-Example-Header': 'Header Value1'
+            // },
+
+            //you can set custom query params
+            // params: {
+            //     'param1': 'myParam1',
+            //     'param2': 'myParam2',
+            // }
         },
         window: {
             title: 'My chat',
@@ -136,6 +146,12 @@
             //     const response = {"output": [{"type": "text", "value": 'You said "' + userInputText + '"'}]};
             //     return response;
             // },
+            // onPrepareRequest: (httpClient) => {
+            //     httpClient.params.mykey1 = 'valOfmykey1';//set original query param
+            // },
+            // onFinishRequest: (httpClient) => {
+            //     delete httpClient.params.mykey1;
+            // },
             onServerResponse: (response) => {
                 console.log('#onServerResponse response=' + JSON.stringify(response));
                 return response;
@@ -146,11 +162,11 @@
     //initialize
     chatux.init(opt);
 
-    let isAutoStartChat=true;
+    let isAutoStartChat = true;
     if (chatux.isMobileDevice()) {
-        isAutoStartChat=false;
+        isAutoStartChat = false;
     }
-    
+
     chatux.start(isAutoStartChat);
 
 </script>

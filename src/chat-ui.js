@@ -126,10 +126,27 @@ export default class ChatUI {
                     this.handleChatServerResponse(serverResponse, loadingIconMsgIdx);
                 } else {
 
+                    if (!this.chatClient.params) {
+                        this.chatClient.params = {};
+                    }
+
+                    this.chatClient.params.text = userInput.value;
+
+                    //You can intercept request headers/params before sending a request to server
+                    if (this.opts.methods && this.opts.methods.onPrepareRequest) {
+                        this.opts.methods.onPrepareRequest(this.chatClient);
+                    }
+
                     //Finish showing loading icon
-                    this.chatClient.sendMsgToChatServer(userInput.value, (serverResponse) => {
+                    this.chatClient.sendMsgToChatServer((serverResponse) => {
+
                         //Handling response from ChatServer
                         this.handleChatServerResponse(serverResponse, loadingIconMsgIdx);
+
+                        //You can intercept request headers/params after sending a request to server
+                        if (this.opts.methods && this.opts.methods.onFinishRequest) {
+                            this.opts.methods.onFinishRequest(this.chatClient);
+                        }
 
                     });
                 }
