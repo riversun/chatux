@@ -66,7 +66,6 @@ module.exports = (env, argv) => {
         resolve: {
             alias: {
                 'vue': 'vue/dist/vue.min.js',
-                'jsframe': 'jsframe.js/dist/jsframe.min.js',
             }
         },
         plugins: [
