@@ -61,7 +61,7 @@ module.exports = (env, argv) => {
       }
     },
     plugins: [
-      new webpack.BannerPlugin(`[name] v${version} Copyright (c) 2019 Tom Misawa, riversun.org@gmail.com, https://github.com/riversun`)
+      new webpack.BannerPlugin(`[name] v${version} Copyright (c) 2019-2022 Tom Misawa, riversun.org@gmail.com, https://github.com/riversun`)
     ],
   };
 
