@@ -1,5 +1,9 @@
 import ChatClient from './chat-client.js';
 import BotUI from 'botui';
+import sanitize from "./sanitizer";
+import {
+  SANITIZE_USER_INPUT_FOR_DISPLAY,
+} from "./chat-ux-def";
 
 
 /**
@@ -32,7 +36,7 @@ export default class ChatUI {
     if (!this.botui) {
 
       this.botui = new BotUI(this.opts.holderId,
-        { vue: this.opts.vue }
+        {vue: this.opts.vue}
       );
 
       if (this.opts) {
@@ -65,9 +69,8 @@ export default class ChatUI {
     }
 
     this.isStarted = true;
-
     if (wakeupInput) {
-      this.handleUserInput({ value: wakeupInput });
+      this.handleUserInput({value: wakeupInput});
     } else {
       this.showInputPrompt();
     }
@@ -75,8 +78,9 @@ export default class ChatUI {
   }
 
   showInputPrompt() {
-    console.log(`#showInputPrompt`)
-    this.botui.action.text({
+    const self = this;
+    self.botui.action.text({
+      addMessage: !SANITIZE_USER_INPUT_FOR_DISPLAY,
       action: {
         button: {
           //icon:'paper-plane',
@@ -84,7 +88,18 @@ export default class ChatUI {
         },
         placeholder: this.botInfo.widget.placeHolder
       }
-    }).then(this.handleUserInput.bind(this));
+    }).then(res => {
+      const text = SANITIZE_USER_INPUT_FOR_DISPLAY ? sanitize(res.value) : res.value;
+      self.botui.message.add({
+        delay: 1,
+        photo: true,
+        human: true, // show it as right aligned to UI
+        content: text,
+      });
+
+      const _handleUserInput = self.handleUserInput.bind(self);
+      _handleUserInput(res);
+    });
   }
 
 
@@ -98,11 +113,9 @@ export default class ChatUI {
       return;
     }
 
-
     //A loading icon is displayed before the display of the user input box is finished
     //Just put wait to prevent it.
     const delayMs4LoadingIcon = 500;
-
 
     if (this.opts.methods) {
       if (this.opts.methods.onUserInput) {
@@ -117,7 +130,7 @@ export default class ChatUI {
     setTimeout(() => {
       //Show loading icon
       this.botui.message.add(
-        { photo: true, loading: true }
+        {photo: true, loading: true}
       ).then(loadingIconMsgIdx => {
 
 
@@ -130,7 +143,7 @@ export default class ChatUI {
             this.chatClient.params = {};
           }
 
-          this.chatClient.params.text = userInput.value;
+          this.chatClient.params.text = this.opts.api.escapeUserInput ? sanitize(userInput.value) : userInput.value;
 
           //You can intercept request headers/params before sending a request to server
           if (this.opts.methods && this.opts.methods.onPrepareRequest) {
@@ -334,7 +347,7 @@ export default class ChatUI {
           const label = opt.label;
           const text = opt.value;
 
-          optActions.push({ text: label, value: text });
+          optActions.push({text: label, value: text});
         }
 
         isUserInputConsumed = true;

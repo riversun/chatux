@@ -1,0 +1,17 @@
+example
+example_chat_server
+public
+test
+gulpfile.js
+node_modules
+.DS_Store
+docs
+coverage
+.circleci
+*.md
+.idea
+babel.*
+jest.*
+webpack.*
+nodemon.*
+
